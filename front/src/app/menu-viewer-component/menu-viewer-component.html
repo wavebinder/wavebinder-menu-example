@@ -1,0 +1,12 @@
+<h2>📋 Menu Calcolato</h2>
+<div *ngIf="menu.length; else empty">
+  <div class="menu-item" *ngFor="let m of menu">
+    <strong>{{ m.dishName }}</strong>
+    <small *ngIf="m.notes">{{ m.notes }}</small>
+  </div>
+</div>
+
+
+<ng-template #empty>
+  <p class="muted">In attesa di dati…</p>
+</ng-template>

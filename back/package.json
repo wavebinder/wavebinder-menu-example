@@ -1,0 +1,20 @@
+{
+  "name": "wb-menu-ex-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "wb-autodb-back": "cross-env CONFIG_PATH=autodb.config npx wavebinder-autodb-back"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
+    "wavebinder-autodb-back": "file:../wb-lib/wavebinder-autodb-back-0.0.1.tgz"
+  }
+}

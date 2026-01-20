@@ -1,0 +1,8 @@
+<h2>👥 Guests</h2>
+<div class="card" *ngFor="let g of guests">
+  <label>
+    <input type="checkbox" (change)="toggle(g, $event.target.checked)"/>
+    <strong>{{ g.name }}</strong>
+  </label>
+  <small>{{ g.preferences.join(', ') }}</small>
+</div>
