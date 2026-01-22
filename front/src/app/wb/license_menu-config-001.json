@@ -1,0 +1,13 @@
+{
+  "payload": {
+    "customer": "s.cipriani@aem-progetti.com",
+    "licenseId": "menu-config-001",
+    "features": [
+      "FULL"
+    ],
+    "expiry": "2030-12-31",
+    "instances": "100"
+  },
+  "payloadRaw": "{\"customer\":\"s.cipriani@aem-progetti.com\",\"licenseId\":\"menu-config-001\",\"features\":[\"FULL\"],\"expiry\":\"2030-12-31\",\"instances\":\"100\"}",
+  "signature": "q9xKpcapZYF7JvUyXAUKPa1+3ixuy/a2KOVvp8ok8QJzsga5hsoEqlova/LqXH0E7PSmNzmiAELv21pi8VZtXGA7OP0xWptsyamowMmsTi06TkXtEH9stJoYDZKY/REcqjEfaQHejeeAfHLSVBvpvbz/KpkSAbKY05QaZJR5vD6FwI/WE8Z6+VUhVXb1fKAAPy60fkthJB8d8AzBAykLKjYhed78fO/lbPGX4qU+tX+tp0fBscUmYmPO7u+sndUACiq6FWirzJnBw6ogzsmZ9xITk6A+qtaMhFwsm1BXgJpgWtB+6I1ayLnWSkZHSlc+BbUdMMmOrQxGiWidpPyAcQ=="
+}

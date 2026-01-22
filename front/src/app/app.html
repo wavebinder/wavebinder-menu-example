@@ -1,19 +1,48 @@
 <div class="app-container">
   <header>
-    <h1>🍽️ Menu Configurator</h1>
-    <p>Demo data-flow driven</p>
+    <h1>🍽️ Menu Compatibility Configurator</h1>
+    <p>WaveBinder Demo APP</p>
   </header>
 
-
   <div class="columns">
+
     <section>
-      <app-guest-selector></app-guest-selector>
-      <app-ingredient-editor></app-ingredient-editor>
+      <h2>Season</h2>
+      <ng-select [(ngModel)]="season" (ngModelChange)="updateSeason($event)">
+        <ng-option [value]="'estate'">estate</ng-option>
+        <ng-option [value]="'autunno'">autunno</ng-option>
+        <ng-option [value]="'inverno'">inverno</ng-option>
+        <ng-option [value]="'primavera'">primavera</ng-option>
+      </ng-select>
     </section>
 
+    <section>
+      <h2>Guests</h2>
+      <div *ngFor="let g of guests">
+        <label>
+          <!--<input type="checkbox" (change)="toggle(g, $event.target.checked)"/>-->
+          <strong>{{ g.name }}</strong>
+        </label>
+        Diet: {{ g.diet }}
+        Allergic to: {{ g.allergies }}
+        Dislikes: {{ g.dislikes }}
+        Budget: {{ g.budget }} €
+      </div>
+
+      <h2>👥 Ingredients</h2>
+      <div *ngFor="let i of ingredients">
+        <label>
+          <!--<input type="checkbox" (change)="toggle(g, $event.target.checked)"/>-->
+          <strong>{{ i.name }}</strong>
+        </label>
+        Season: {{ i.season }}
+        Quantity: {{ i.quantity }}
+        Characteristics: {{ i.tags }}
+      </div>
+
+    </section>
 
     <section>
-      <app-menu-viewer></app-menu-viewer>
     </section>
   </div>
 </div>

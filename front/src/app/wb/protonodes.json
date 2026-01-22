@@ -1,0 +1,41 @@
+[
+  {
+    "name": "season",
+    "type": "SIMPLE",
+    "path": "/season",
+    "la": {
+      "type": "USER_SELECTION"
+    },
+    "dep": []
+  },
+  {
+    "name": "guests",
+    "type": "SIMPLE",
+    "path": "/guests",
+    "la": {
+      "type": "GET",
+      "addr": "/guests",
+      "serviceName": "api"
+    },
+    "dep": []
+  },
+  {
+    "name": "ingredients",
+    "type": "SIMPLE",
+    "path": "/ingredients",
+    "la": {
+      "type": "GET",
+      "addr": "/ingredients?season={s}",
+      "serviceName": "api"
+    },
+    "dep": [
+      {
+        "nodeName": "season",
+        "parameterName": "s",
+        "isOptional": false,
+        "onUpdate": true,
+        "type": "PATH_VARIABLE"
+      }
+    ]
+  }
+]

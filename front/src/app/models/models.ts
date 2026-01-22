@@ -1,21 +1,16 @@
 export interface Guest {
   id: string;
   name: string;
-  preferences: string[];
+  diet: string,
+  allergies: string,
+  dislikes: string,
+  budget: number;
 }
 
-
-export interface DishIngredient {
+export interface Ingredient {
   id: string;
-  ingredientId: string;
-  ingredientName: string;
+  name: string;
+  season: string;
   quantity: number;
-  unit: string;
-}
-
-
-export interface MenuItem {
-  dishId: string;
-  dishName: string;
-  notes?: string;
+  tags: string[];
 }

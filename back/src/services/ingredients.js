@@ -1,6 +1,6 @@
 const { getTable } = require('../apiClient');
 
-// GET /ingredients/list?season=estate
+// GET /ingredients?season=estate
 exports.listIngredients = async (req, res) => {
     const { season } = req.query;
 

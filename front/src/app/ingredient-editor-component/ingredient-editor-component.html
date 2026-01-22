@@ -1,6 +1,0 @@
-<h2>🥕 Ingredients</h2>
-<div class="ingredient" *ngFor="let i of ingredients">
-  <span>{{ i.ingredientName }}</span>
-  <input type="number" [(ngModel)]="i.quantity" (ngModelChange)="update(i)"/>
-  <span>{{ i.unit }}</span>
-</div>

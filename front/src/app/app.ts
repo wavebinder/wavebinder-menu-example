@@ -1,16 +1,58 @@
-import {Component, signal} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {GuestSelectorComponent} from './guest-selector-component/guest-selector-component';
-import {IngredientEditorComponent} from './ingredient-editor-component/ingredient-editor-component';
-import {MenuViewerComponent} from './menu-viewer-component/menu-viewer-component';
+import {AfterViewInit, ChangeDetectorRef, Component} from '@angular/core';
+
+import {WaveBinder} from '../../node_modules/wave-binder/lib/wave-binder';
+import {HttpServiceSetting} from '../../node_modules/wave-binder/lib/wvb/httpService/http-service';
+import {NgForOf} from '@angular/common';
+import {Guest, Ingredient} from './models/models';
+import {asyncScheduler, observeOn} from 'rxjs';
+import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [GuestSelectorComponent, IngredientEditorComponent, MenuViewerComponent],
+  imports: [NgForOf, NgSelectComponent, FormsModule, NgOptionComponent],
   standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('front');
+export class App implements AfterViewInit {
+
+  public wb: WaveBinder;
+
+  guests: Guest[] = [];
+  ingredients: Ingredient[] = [];
+  season = 'select a season';
+
+  constructor(private cdr: ChangeDetectorRef) {
+    const extApis = new Map<string, HttpServiceSetting>();
+    extApis.set('api', require('./wb/extapi.json'));
+
+    const LICENSE = require('./wb/license_menu-config-001.json')
+    const PROTO_NODES = require('./wb/protonodes.json')
+
+    this.wb = new WaveBinder(LICENSE, PROTO_NODES, extApis, []);
+  }
+
+  ngAfterViewInit(): void {
+    this.wb.tangleNodes();
+
+    this.wb.getNodeByName('guests')
+      .pipe(observeOn(asyncScheduler))
+      .subscribe((g) => {
+        this.guests = g;
+        this.cdr.markForCheck();
+      });
+
+    this.wb.getNodeByName('ingredients')
+      .pipe(observeOn(asyncScheduler))
+      .subscribe((i) => {
+        this.ingredients = i;
+        this.cdr.markForCheck();
+      });
+  }
+
+  updateSeason($event: string) {
+   this.wb.getNodeByName('season').next($event);
+  }
+
 }
