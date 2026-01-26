@@ -14,3 +14,10 @@ export interface Ingredient {
   quantity: number;
   tags: string[];
 }
+
+export interface Dish {
+  id: string,
+  name: string,
+  category: string,
+  cost: number
+}

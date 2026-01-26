@@ -3,7 +3,7 @@ import {AfterViewInit, ChangeDetectorRef, Component} from '@angular/core';
 import {WaveBinder} from '../../node_modules/wave-binder/lib/wave-binder';
 import {HttpServiceSetting} from '../../node_modules/wave-binder/lib/wvb/httpService/http-service';
 import {NgForOf} from '@angular/common';
-import {Guest, Ingredient} from './models/models';
+import {Dish, Guest, Ingredient} from './models/models';
 import {asyncScheduler, observeOn} from 'rxjs';
 import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
@@ -20,7 +20,10 @@ export class App implements AfterViewInit {
   public wb: WaveBinder;
 
   guests: Guest[] = [];
+  uninvited: Guest[] = [];
   ingredients: Ingredient[] = [];
+  dishes: Dish[] = [];
+
   season = 'select a season';
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -49,10 +52,31 @@ export class App implements AfterViewInit {
         this.ingredients = i;
         this.cdr.markForCheck();
       });
+
+    this.wb.getNodeByName('dishes')
+      .pipe(observeOn(asyncScheduler))
+      .subscribe((d) => {
+        this.dishes = d;
+        this.cdr.markForCheck();
+      });
   }
 
   updateSeason($event: string) {
-   this.wb.getNodeByName('season').next($event);
+    this.wb.getNodeByName('season').next($event);
   }
 
+  toggleGuest(g: Guest, target: EventTarget) {
+    const isChecked = (target as HTMLInputElement).checked;
+    const guests = this.wb.getNodeByName('guests').value as Guest[];
+
+    if (isChecked) {
+      this.uninvited = this.uninvited.filter(u => u.id !== g.id);
+      guests.push(g);
+      this.wb.getNodeByName('guests').next(guests);
+    } else {
+      this.uninvited.push(g);
+      this.wb.getNodeByName('guests').next(guests.filter(guest => g.id !== guest.id));
+    }
+
+  }
 }

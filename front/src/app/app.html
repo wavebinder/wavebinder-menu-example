@@ -17,19 +17,7 @@
     </section>
 
     <section>
-      <h2>Guests</h2>
-      <div *ngFor="let g of guests">
-        <label>
-          <!--<input type="checkbox" (change)="toggle(g, $event.target.checked)"/>-->
-          <strong>{{ g.name }}</strong>
-        </label>
-        Diet: {{ g.diet }}
-        Allergic to: {{ g.allergies }}
-        Dislikes: {{ g.dislikes }}
-        Budget: {{ g.budget }} €
-      </div>
-
-      <h2>👥 Ingredients</h2>
+      <h2>Ingredients</h2>
       <div *ngFor="let i of ingredients">
         <label>
           <!--<input type="checkbox" (change)="toggle(g, $event.target.checked)"/>-->
@@ -39,10 +27,39 @@
         Quantity: {{ i.quantity }}
         Characteristics: {{ i.tags }}
       </div>
-
     </section>
 
     <section>
+      <h2>Guests</h2>
+      <div *ngFor="let g of guests">
+        <label>
+          <input type="checkbox" (change)="toggleGuest(g, $event.target)" checked/>
+          <strong>{{ g.name }}</strong>
+        </label>
+        Diet: {{ g.diet }}
+        Allergic to: {{ g.allergies }}
+        Dislikes: {{ g.dislikes }}
+      </div>
+      <div *ngFor="let g of uninvited">
+        <label>
+          <input type="checkbox" (change)="toggleGuest(g, $event.target)"/>
+          <strong>{{ g.name }}</strong>
+        </label>
+        Diet: {{ g.diet }}
+        Allergic to: {{ g.allergies }}
+        Dislikes: {{ g.dislikes }}
+      </div>
+    </section>
+
+    <section>
+      <h2>Compatible Dishes</h2>
+      <div *ngFor="let d of dishes">
+        <label>
+          <!--<input type="checkbox" (change)="toggle(g, $event.target.checked)"/>-->
+          <strong>{{ d.name }}</strong>
+        </label>
+        Category: {{ d.category }}
+      </div>
     </section>
   </div>
 </div>

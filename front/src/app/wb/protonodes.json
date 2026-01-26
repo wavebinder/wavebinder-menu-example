@@ -9,32 +9,62 @@
     "dep": []
   },
   {
-    "name": "guests",
-    "type": "SIMPLE",
-    "path": "/guests",
+    "name": "dinner",
+    "type": "COMPLEX",
+    "path": "/dinner",
     "la": {
-      "type": "GET",
-      "addr": "/guests",
-      "serviceName": "api"
+      "type": "USER_SELECTION"
     },
-    "dep": []
+    "dep": [],
+    "protos": [
+      {
+        "name": "guests",
+        "type": "SIMPLE",
+        "path": "/guests",
+        "la": {
+          "type": "GET",
+          "addr": "/guests",
+          "serviceName": "api"
+        },
+        "dep": []
+      },
+      {
+        "name": "ingredients",
+        "type": "SIMPLE",
+        "path": "/ingredients",
+        "la": {
+          "type": "GET",
+          "addr": "/ingredients?season={s}",
+          "serviceName": "api"
+        },
+        "dep": [
+          {
+            "nodeName": "season",
+            "parameterName": "s",
+            "isOptional": false,
+            "onUpdate": true,
+            "type": "PATH_VARIABLE"
+          }
+        ]
+      }
+    ]
   },
   {
-    "name": "ingredients",
+    "name": "dishes",
     "type": "SIMPLE",
-    "path": "/ingredients",
+    "path": "/dishes",
     "la": {
-      "type": "GET",
-      "addr": "/ingredients?season={s}",
-      "serviceName": "api"
+      "type": "POST",
+      "addr": "/dishes",
+      "serviceName": "api",
+      "bodyType": "JSON_OBJECT"
     },
     "dep": [
       {
-        "nodeName": "season",
-        "parameterName": "s",
+        "nodeName": "dinner",
         "isOptional": false,
         "onUpdate": true,
-        "type": "PATH_VARIABLE"
+        "type": "BODY"
       }
     ]
   }

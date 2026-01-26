@@ -15,7 +15,7 @@ const dishes = require('./services/dishes');
 
 app.get('/api/ingredients', ingredients.listIngredients);
 app.get('/api/guests', guests.listGuests);
-app.post('/api/dishes/compatible', dishes.compatibleDishes);
+app.post('/api/dishes', dishes.compatibleDishes);
 
 app.get('/', (req, res) => res.send('Hello! My endpoints starts with /api'));
 app.get('/api', (req, res) => res.send('Hello again! My endpoints are: /api/ingredients, /api/guests and /api/dishes/compatible'));

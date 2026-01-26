@@ -8,7 +8,7 @@ function isDishCompatible(dish, guests) {
     const dishTags = splitCsv(dish.tags);
 
     return guests.every(g => {
-        if (g.diet === 'vegan' && dishTags.includes('meat')) return false;
+        if (g.diet === 'vegan' && (dishTags.includes('meat') || dishTags.includes('vegetarian'))) return false;
         if (g.diet === 'vegetarian' && dishTags.includes('meat')) return false;
 
         const allergies = splitCsv(g.allergies);
@@ -19,6 +19,11 @@ function isDishCompatible(dish, guests) {
 // POST /dishes/compatible
 exports.compatibleDishes = async (req, res) => {
     const { ingredients, guests } = req.body;
+
+    if (ingredients == null || guests == null) {
+        res.json([]);
+        return;
+    }
 
     const availableIngredients = new Set(
         ingredients.map(i => i.id)
@@ -46,7 +51,7 @@ exports.compatibleDishes = async (req, res) => {
             id: d.id,
             name: d.name,
             category: d.category,
-            score: 100 // tracer placeholder
+            cost: d.cost
         }))
     );
 };
