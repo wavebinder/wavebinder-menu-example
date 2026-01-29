@@ -92,6 +92,7 @@
 
         <div class="result-list">
           <div class="result-item" *ngFor="let d of dishes()">
+            <input type="checkbox" (change)="toggleSelectedDish(d, $event.target)">
             <strong>{{ d.name }}</strong>
             <span class="pill">{{ d.cost }} €</span>
           </div>

@@ -35,15 +35,14 @@ export class App implements AfterViewInit {
   ngAfterViewInit(): void {
     this.wb.tangleNodes();
 
-    this.wb.getNodeByName('guests')
-      .pipe(observeOn(asyncScheduler))
-      .subscribe(() => this.cdr.markForCheck());
+    this.listenToNodeChange('guests');
+    this.listenToNodeChange('ingredients');
+    this.listenToNodeChange('dishes');
+    this.listenToNodeChange('menu');
+  }
 
-    this.wb.getNodeByName('ingredients')
-      .pipe(observeOn(asyncScheduler))
-      .subscribe(() => this.cdr.markForCheck());
-
-    this.wb.getNodeByName('dishes')
+  listenToNodeChange(nodeName: string): void {
+    this.wb.getNodeByName(nodeName)
       .pipe(observeOn(asyncScheduler))
       .subscribe(() => this.cdr.markForCheck());
   }
@@ -66,13 +65,34 @@ export class App implements AfterViewInit {
     }
   }
 
+  toggleSelectedDish(d: Dish, target: EventTarget | null) {
+    const isChecked = (target as HTMLInputElement).checked;
+    let menu: Dish[] = this.menu();
+    if (!menu)
+      menu = [];
+
+    if (isChecked) {
+      menu.push(d);
+      this.wb.getNodeByName('menu').next(menu);
+    } else {
+      this.wb.getNodeByName('menu').next(menu.filter(dish => d.id !== dish.id));
+    }
+    console.log(this.menu())
+  }
+
   guests(): Guest[] {
     return this.wb.getNodeByName('guests').value;
   }
+
   ingredients(): Ingredient[] {
     return this.wb.getNodeByName('ingredients').value;
   }
+
   dishes(): Dish[] {
     return this.wb.getNodeByName('dishes').value;
+  }
+
+  menu(): Dish[] {
+    return this.wb.getNodeByName('menu').value;
   }
 }

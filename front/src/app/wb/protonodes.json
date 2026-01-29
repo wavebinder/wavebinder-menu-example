@@ -1,71 +1,80 @@
 [
-  {
-    "name": "season",
-    "type": "SIMPLE",
-    "path": "/season",
-    "la": {
-      "type": "USER_SELECTION"
-    },
-    "dep": []
-  },
-  {
-    "name": "dinner",
-    "type": "COMPLEX",
-    "path": "/dinner",
-    "la": {
-      "type": "USER_SELECTION"
-    },
-    "dep": [],
-    "protos": [
-      {
-        "name": "guests",
+    {
+        "name": "season",
         "type": "SIMPLE",
-        "path": "/guests",
+        "path": "/season",
         "la": {
-          "type": "GET",
-          "addr": "/guests",
-          "serviceName": "api"
+            "type": "USER_SELECTION"
         },
         "dep": []
-      },
-      {
-        "name": "ingredients",
-        "type": "SIMPLE",
-        "path": "/ingredients",
+    },
+    {
+        "name": "dinner",
+        "type": "COMPLEX",
+        "path": "/dinner",
         "la": {
-          "type": "GET",
-          "addr": "/ingredients?season={s}",
-          "serviceName": "api"
+            "type": "USER_SELECTION"
+        },
+        "dep": [],
+        "protos": [
+            {
+                "name": "guests",
+                "type": "SIMPLE",
+                "path": "/guests",
+                "la": {
+                    "type": "GET",
+                    "addr": "/guests",
+                    "serviceName": "api"
+                },
+                "dep": []
+            },
+            {
+                "name": "ingredients",
+                "type": "SIMPLE",
+                "path": "/ingredients",
+                "la": {
+                    "type": "GET",
+                    "addr": "/ingredients?season={s}",
+                    "serviceName": "api"
+                },
+                "dep": [
+                    {
+                        "nodeName": "season",
+                        "parameterName": "s",
+                        "isOptional": false,
+                        "onUpdate": true,
+                        "type": "PATH_VARIABLE"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "dishes",
+        "type": "SIMPLE",
+        "path": "/dishes",
+        "la": {
+            "type": "POST",
+            "addr": "/dishes",
+            "serviceName": "api",
+            "bodyType": "JSON_OBJECT"
         },
         "dep": [
-          {
-            "nodeName": "season",
-            "parameterName": "s",
-            "isOptional": false,
-            "onUpdate": true,
-            "type": "PATH_VARIABLE"
-          }
+            {
+                "nodeName": "dinner",
+                "isOptional": false,
+                "onUpdate": true,
+                "type": "BODY"
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "dishes",
-    "type": "SIMPLE",
-    "path": "/dishes",
-    "la": {
-      "type": "POST",
-      "addr": "/dishes",
-      "serviceName": "api",
-      "bodyType": "JSON_OBJECT"
     },
-    "dep": [
-      {
-        "nodeName": "dinner",
-        "isOptional": false,
-        "onUpdate": true,
-        "type": "BODY"
-      }
-    ]
-  }
+    {
+        "name": "menu",
+        "type": "SIMPLE",
+        "path": "/menu",
+        "la": {
+            "type": "USER_SELECTION"
+        },
+        "dep": []
+    }
 ]
