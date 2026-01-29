@@ -20,4 +20,5 @@ export interface Dish {
   name: string,
   category: string,
   cost: number
+  ingredients: string[]
 }

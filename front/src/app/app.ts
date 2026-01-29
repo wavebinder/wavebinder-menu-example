@@ -18,13 +18,9 @@ import {FormsModule} from '@angular/forms';
 export class App implements AfterViewInit {
 
   public wb: WaveBinder;
-
-  guests: Guest[] = [];
   uninvited: Guest[] = [];
-  ingredients: Ingredient[] = [];
-  dishes: Dish[] = [];
 
-  season = 'select a season';
+  season = 'Scegli una Stagione';
 
   constructor(private cdr: ChangeDetectorRef) {
     const extApis = new Map<string, HttpServiceSetting>();
@@ -41,24 +37,15 @@ export class App implements AfterViewInit {
 
     this.wb.getNodeByName('guests')
       .pipe(observeOn(asyncScheduler))
-      .subscribe((g) => {
-        this.guests = g;
-        this.cdr.markForCheck();
-      });
+      .subscribe(() => this.cdr.markForCheck());
 
     this.wb.getNodeByName('ingredients')
       .pipe(observeOn(asyncScheduler))
-      .subscribe((i) => {
-        this.ingredients = i;
-        this.cdr.markForCheck();
-      });
+      .subscribe(() => this.cdr.markForCheck());
 
     this.wb.getNodeByName('dishes')
       .pipe(observeOn(asyncScheduler))
-      .subscribe((d) => {
-        this.dishes = d;
-        this.cdr.markForCheck();
-      });
+      .subscribe(() => this.cdr.markForCheck());
   }
 
   updateSeason($event: string) {
@@ -67,7 +54,7 @@ export class App implements AfterViewInit {
 
   toggleGuest(g: Guest, target: EventTarget) {
     const isChecked = (target as HTMLInputElement).checked;
-    const guests = this.wb.getNodeByName('guests').value as Guest[];
+    const guests = this.guests();
 
     if (isChecked) {
       this.uninvited = this.uninvited.filter(u => u.id !== g.id);
@@ -77,6 +64,15 @@ export class App implements AfterViewInit {
       this.uninvited.push(g);
       this.wb.getNodeByName('guests').next(guests.filter(guest => g.id !== guest.id));
     }
+  }
 
+  guests(): Guest[] {
+    return this.wb.getNodeByName('guests').value;
+  }
+  ingredients(): Ingredient[] {
+    return this.wb.getNodeByName('ingredients').value;
+  }
+  dishes(): Dish[] {
+    return this.wb.getNodeByName('dishes').value;
   }
 }

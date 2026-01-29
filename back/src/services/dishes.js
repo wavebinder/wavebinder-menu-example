@@ -11,6 +11,9 @@ function isDishCompatible(dish, guests) {
         if (g.diet === 'vegan' && (dishTags.includes('meat') || dishTags.includes('vegetarian'))) return false;
         if (g.diet === 'vegetarian' && dishTags.includes('meat')) return false;
 
+        const dislikes = splitCsv(g.dislikes);
+        if (dislikes.some(a => dishTags.includes(a))) return false;
+
         const allergies = splitCsv(g.allergies);
         return !allergies.some(a => dishTags.includes(a));
     });
@@ -51,7 +54,7 @@ exports.compatibleDishes = async (req, res) => {
             id: d.id,
             name: d.name,
             category: d.category,
-            cost: d.cost
+            cost: d.cost,
         }))
     );
 };

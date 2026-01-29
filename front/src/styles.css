@@ -1,2 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@ng-select/ng-select/themes/default.theme.css";
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+
+  background-color: #f8fafc; /* fallback */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top left, bottom right;
+  background-size: auto;
+
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.015),
+      rgba(0,0,0,0.015) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    radial-gradient(circle 400px at top left, rgba(224,242,254,0.3), transparent 100%),
+    radial-gradient(circle 600px at bottom right, rgba(254,243,199,0.25), transparent 100%);
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+}
