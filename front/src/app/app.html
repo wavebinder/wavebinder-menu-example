@@ -2,92 +2,103 @@
 
   <header class="intro">
     <h1 class="app-title">
-      <div class="floating-emoji">🍽️</div> Il Menu della Serata
+      <div class="floating-emoji">🍽️</div>
+      Il Menu della Serata
     </h1>
     <p class="app-subtitle">
-      Seleziona la stagione, gestisci gli ospiti e scopri quali piatti sono compatibili con tutti per configurare il tuo gustoso menù fisso.
+      Seleziona la stagione, gestisci gli ospiti e scopri quali piatti sono compatibili con tutti per configurare il tuo
+      gustoso menù fisso.
     </p>
   </header>
 
-  <!-- SEASON -->
-  <section class="section">
-    <h2>Stagione</h2>
-    <div class="surface">
-      <ng-select
-        [(ngModel)]="season"
-        (ngModelChange)="updateSeason($event)">
-        <ng-option value="estate">Estate</ng-option>
-        <ng-option value="autunno">Autunno</ng-option>
-        <ng-option value="inverno">Inverno</ng-option>
-        <ng-option value="primavera">Primavera</ng-option>
-      </ng-select>
-    </div>
-  </section>
+  <div class="content-grid">
 
-  <!-- INGREDIENTS -->
-  <section class="section">
-    <h2>Ingredienti Disponibili</h2>
-
-    <div class="ingredient-list">
-      <div class="ingredient" *ngFor="let i of ingredients()">
-        <div class="ingredient-main">
-          <strong>{{ i.name }}</strong>
-          <span class="badge">{{ i.season }}</span>
+    <div class="left-column">
+      <!-- SEASON -->
+      <section class="section">
+        <h2>Stagione</h2>
+        <div class="surface">
+          <ng-select
+            [(ngModel)]="season"
+            (ngModelChange)="updateSeason($event)">
+            <ng-option value="estate">Estate</ng-option>
+            <ng-option value="autunno">Autunno</ng-option>
+            <ng-option value="inverno">Inverno</ng-option>
+            <ng-option value="primavera">Primavera</ng-option>
+          </ng-select>
         </div>
+      </section>
 
-        <div class="ingredient-meta">
-          <span>Qty: {{ i.quantity }}</span>
-          <span>{{ i.tags }}</span>
+      <!-- INGREDIENTS -->
+      <section class="section">
+        <h2>Ingredienti Disponibili</h2>
+
+        <div class="ingredient-list">
+          <div class="ingredient" *ngFor="let i of ingredients()">
+            <div class="ingredient-main">
+              <strong>{{ i.name }}</strong>
+              <span class="badge">{{ i.season }}</span>
+            </div>
+
+            <div class="ingredient-meta">
+              <span>Qty: {{ i.quantity }}</span>
+              <span>{{ i.tags }}</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
 
-  <!-- GUESTS -->
-  <section class="section">
-    <h2>Ospiti</h2>
 
-    <div class="guest-grid">
-      <div class="guest-card" *ngFor="let g of guests()">
-        <label class="guest-header">
-          <input type="checkbox" checked (change)="toggleGuest(g, $event.target)">
-          <strong>{{ g.name }}</strong>
-        </label>
+    <div class="right-column">
+      <!-- GUESTS -->
+      <section class="section">
+        <h2>Ospiti</h2>
 
-        <div class="guest-body">
-          <div><b>Diet</b>: {{ g.diet }}</div>
-          <div><b>Allergies</b>: {{ g.allergies }}</div>
-          <div><b>Dislikes</b>: {{ g.dislikes }}</div>
-          <div><b>Budget</b>: {{ g.budget }} €</div>
+        <div class="guest-grid">
+          <div class="guest-card" *ngFor="let g of guests()">
+            <label class="guest-header">
+              <input type="checkbox" checked (change)="toggleGuest(g, $event.target)">
+              <strong>{{ g.name }}</strong>
+            </label>
+
+            <div class="guest-body">
+              <div><b>Diet</b>: {{ g.diet }}</div>
+              <div><b>Allergies</b>: {{ g.allergies }}</div>
+              <div><b>Dislikes</b>: {{ g.dislikes }}</div>
+              <div><b>Budget</b>: {{ g.budget }} €</div>
+            </div>
+          </div>
+
+          <div class="guest-card inactive" *ngFor="let g of uninvited">
+            <label class="guest-header">
+              <input type="checkbox" (change)="toggleGuest(g, $event.target)">
+              <strong>{{ g.name }}</strong>
+            </label>
+
+            <div class="guest-body">
+              <div><b>Diet</b>: {{ g.diet }}</div>
+              <div><b>Allergies</b>: {{ g.allergies }}</div>
+              <div><b>Dislikes</b>: {{ g.dislikes }}</div>
+              <div><b>Budget</b>: {{ g.budget }} €</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="guest-card inactive" *ngFor="let g of uninvited">
-        <label class="guest-header">
-          <input type="checkbox" (change)="toggleGuest(g, $event.target)">
-          <strong>{{ g.name }}</strong>
-        </label>
+      <!-- RESULT -->
+      <section class="section result result-section">
+        <h2>Piatti Compatibili</h2>
 
-        <div class="guest-body">
-          <div><b>Diet</b>: {{ g.diet }}</div>
-          <div><b>Allergies</b>: {{ g.allergies }}</div>
-          <div><b>Dislikes</b>: {{ g.dislikes }}</div>
-          <div><b>Budget</b>: {{ g.budget }} €</div>
+        <div class="result-list">
+          <div class="result-item" *ngFor="let d of dishes()">
+            <strong>{{ d.name }}</strong>
+            <span class="pill">{{ d.cost }} €</span>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
 
-  <!-- RESULT -->
-  <section class="section result">
-    <h2>Piatti Compatibili</h2>
-
-    <div class="result-list">
-      <div class="result-item" *ngFor="let d of dishes()">
-        <strong>{{ d.name }}</strong>
-        <span class="pill">{{ d.cost }} €</span>
-      </div>
-    </div>
-  </section>
+  </div>
 
 </div>

@@ -1,5 +1,6 @@
 .intro {
   margin-bottom: 32px;
+  text-align: center;
 }
 
 .intro h1 {
@@ -13,6 +14,7 @@
   color: #475569;
   line-height: 1.5;
   max-width: 520px;
+  margin: 0 auto;
 }
 
 body {
@@ -29,8 +31,13 @@ body {
 
 .app-title {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
+}
+
+.content-grid {
+  display: block;
 }
 
 .card {
@@ -138,8 +145,29 @@ body {
 }
 
 @media (min-width: 1024px) {
+  .app {
+    max-width: 1280px;   /* 1100–1280: scegli tu */
+  }
   .guest-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .left-column,
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .result-section {
+    position: sticky;
+    top: 24px;
   }
 }
 
