@@ -22,3 +22,19 @@ export interface Dish {
   cost: number
   ingredients: string[]
 }
+
+export interface Analysis {
+  cost_total: number,
+  weight_total_g: number,
+  calories_total_kcal: number,
+  macros_g: {
+    protein: number,
+    carbs: number,
+    fat: number
+  },
+  macros_percentage: {
+    protein: number,
+    carbs: number,
+    fat: number
+  }
+}

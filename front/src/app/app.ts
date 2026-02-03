@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component} from '@angular/core';
 
 import {WaveBinder} from '../../node_modules/wave-binder/lib/wave-binder';
 import {HttpServiceSetting} from '../../node_modules/wave-binder/lib/wvb/httpService/http-service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {Dish, Guest, Ingredient} from './models/models';
 import {asyncScheduler, observeOn} from 'rxjs';
 import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [NgForOf, NgSelectComponent, FormsModule, NgOptionComponent],
+  imports: [NgForOf, NgIf, NgSelectComponent, FormsModule, NgOptionComponent],
   standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -39,6 +39,7 @@ export class App implements AfterViewInit {
     this.listenToNodeChange('ingredients');
     this.listenToNodeChange('dishes');
     this.listenToNodeChange('menu');
+    this.listenToNodeChange('analysis');
   }
 
   listenToNodeChange(nodeName: string): void {
@@ -77,7 +78,6 @@ export class App implements AfterViewInit {
     } else {
       this.wb.getNodeByName('menu').next(menu.filter(dish => d.id !== dish.id));
     }
-    console.log(this.menu())
   }
 
   guests(): Guest[] {
@@ -95,4 +95,14 @@ export class App implements AfterViewInit {
   menu(): Dish[] {
     return this.wb.getNodeByName('menu').value;
   }
+
+  analysis(): any {
+    return this.wb.getNodeByName('analysis').value;
+  }
+
+  isOverBudget(guest: Guest): boolean {
+    if (!this.analysis()) return false;
+    return guest.budget < this.analysis().cost_total;
+  }
+
 }

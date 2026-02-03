@@ -75,6 +75,31 @@
         "la": {
             "type": "USER_SELECTION"
         },
-        "dep": []
+        "dep": [
+          {
+            "nodeName": "dishes",
+            "isOptional": false,
+            "onUpdate": true
+          }
+        ]
+    },
+    {
+        "name": "analysis",
+        "type": "SIMPLE",
+        "path": "/analysis",
+        "la": {
+            "type": "POST",
+            "addr": "/menu/analysis",
+            "serviceName": "api",
+            "bodyType": "JSON_OBJECT"
+        },
+        "dep": [
+            {
+                "nodeName": "menu",
+                "isOptional": false,
+                "onUpdate": true,
+                "type": "BODY"
+            }
+        ]
     }
 ]
