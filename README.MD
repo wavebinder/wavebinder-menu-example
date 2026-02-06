@@ -1,55 +1,55 @@
 # Wavebinder Menu Example
 
-Esempio completo di applicazione per la composizione di un menù fisso, con frontend Angular e due mini-backend coordinati.
+Complete example application for composing a fixed menu, with an Angular frontend and two coordinated mini backends.
 
-Il progetto nasce come **esempio tecnico** e come playground per logiche di compatibilità tra piatti, ospiti e vincoli economici/nutrizionali.
+The project was created as a **technical example** and as a playground for experimenting with compatibility logic between dishes, guests, and economic/nutritional constraints.
 
 ---
 
-## 📁 Struttura della repository
+## 📁 Repository structure
 
 ```
 /
-├── front/              → frontend Angular
-├── back/               → backend NodeJS
+├── front/              → Angular frontend
+├── back/               → Node.js backend
 ```
 
 ---
 
-## Panoramica
+## Overview
 
-L’applicazione è composta da **tre parti principali**:
+The application is composed of **three main parts**:
 
 ### ➤ Frontend
 
-* Single Component App in Angular
-* Gestione UI, stato applicativo e logica di selezione
-* Nessuna libreria grafica esterna
-* Animazioni e visualizzazioni realizzate solo con HTML/CSS
+* Single Component App built with Angular
+* UI management, application state, and selection logic
+* No external UI libraries
+* Animations and visualizations implemented using plain HTML/CSS
 
-Funzionalità principali:
+Main features:
 
-* selezione stagione
-* gestione ospiti (diete, allergie, preferenze, budget)
-* selezione piatti compatibili
-* analisi nutrizionale del menù
-* segnalazione visiva degli ospiti con budget insufficiente
+* season selection
+* guest management (diets, allergies, preferences, budget)
+* compatible dish selection
+* nutritional analysis of the menu
+* visual indication of guests with insufficient budget
 
 ---
 
 ### ➤ Backend
 
-Espone i dati fondamentali dell’applicazione:
+Provides the core data used by the application:
 
-* ingredienti
-* piatti
-* regole di compatibilità
+* ingredients
+* dishes
+* compatibility rules
 
-È il **primo servizio da avviare**, perché fornisce i dati utilizzati dagli altri moduli.
+This is the **first service that must be started**, as it supplies the data consumed by the other modules.
 
 ---
 
-## Avvio del progetto
+## Running the project
 
 ### 1️⃣ Backend
 
@@ -70,7 +70,7 @@ npm install
 ng serve
 ```
 
-Applicazione disponibile su:
+The application will be available at:
 
 ```
 http://localhost:4200
@@ -78,39 +78,39 @@ http://localhost:4200
 
 ---
 
-## Scelte architetturali
+## Architectural choices
 
-* Stato gestito localmente nel component principale
-* Nessun global store (NgRx, ecc.) per scelta progettuale
-* Logica deterministica e facilmente leggibile
-* Separazione chiara tra UI e dati
+* State managed locally inside the main component
+* No global store (NgRx, etc.) by design
+* Deterministic and easily readable logic
+* Clear separation between UI and data layers
 
 ---
 
-## Stack tecnologico
+## Technology stack
 
 * Angular
 * TypeScript
 * Node.js
 * HTML5 / CSS3
 
-Nessuna dipendenza grafica o libreria di charting esterna.
+No external UI or charting libraries are used.
 
 ---
 
-## Stato del progetto
+## Project status
 
-Il progetto è **solo un esempio**, ma completamente funzionante.
+This project is **example-only**, but fully functional.
 
-Possibili evoluzioni:
+Possible future extensions:
 
-* filtri e suggerimenti automatici per ospite
-* esportazione del menù
-* salvataggio configurazioni
-* test automatici end-to-end
+* automatic guest-based filters and suggestions
+* menu export
+* configuration persistence
+* end-to-end automated tests
 
 ---
 
-## Licenza
+## License
 
-Tutti i diritti riservati.
+All rights reserved.
